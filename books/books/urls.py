@@ -19,6 +19,7 @@ from django.urls import re_path as url
 from django.urls import path, include
 from rest_framework.routers import SimpleRouter
 
+from books import settings
 from store.views import BookViewSet, auth, UserBookRelationView
 
 router = SimpleRouter()
@@ -33,3 +34,9 @@ urlpatterns = [
 ]
 
 urlpatterns += router.urls
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path("__debug__/", include(debug_toolbar.urls)),
+    ] + urlpatterns
